@@ -6,7 +6,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 import simplejson
 import models
 # from django.utils import simplejson
@@ -34,6 +34,8 @@ def loginSystem(request):
 @csrf_exempt
 def logoutSystem(request):
     logout(request)
+    data = {"result": "success"}
+    return HttpResponse(simplejson.dumps(data, ensure_ascii=False))
 
 @csrf_exempt
 def registerSystem(request):

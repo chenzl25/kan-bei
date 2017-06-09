@@ -28,12 +28,20 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // proxy all requests starting with /api to jsonplaceholder
-      '/api': {
+      // proxy all requests starting with /maoyan_api to jsonplaceholder
+      '/maoyan_api': {
         target: 'http://m.maoyan.com',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/maoyan_api': ''
+        }
+      },
+
+      '/server_api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/server_api': ''
         }
       }
     },

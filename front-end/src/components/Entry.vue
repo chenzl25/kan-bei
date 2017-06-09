@@ -29,11 +29,10 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="avatar-img" src="../assets/avatar.png"> <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+                <li v-if="!isLogin"><a href="#/register">注册</a></li>
+                <li v-if="!isLogin"><a href="#/login">登录</a></li>
+                <li v-if="isLogin"><a href="#">我的订单</a></li>
+                <li v-if="isLogin"><a href="#" v-on:click="logout">退出</a></li>
               </ul>
             </li>
           </ul>
@@ -63,7 +62,7 @@ let entryData = {}
 
 entryData.movies = [1]
 
-$.ajax({url: 'api/movie/list.json?type=hot&offset=0&limit=40'})
+$.ajax({url: '/maoyan_api/movie/list.json?type=hot&offset=0&limit=40'})
  .done(function (data) {
    data = JSON.parse(data)
    entryData.movies = data['data']['movies']
@@ -75,7 +74,8 @@ export default {
     return function () {
       return {
         entryData: entryData,
-        searchText: ''
+        searchText: '',
+        isLogin: this.$router.isLogin
       }
     }
   })(entryData),
@@ -88,6 +88,22 @@ export default {
       return self.entryData.movies.filter(function (movie) {
         return movie.nm.indexOf(self.searchText) !== -1
       })
+    }
+  },
+  methods: {
+    logout: function () {
+      var that = this
+      $.post({
+        url: '/server_api/login/out',
+        type: 'POST'})
+        .done(function (data) {
+          data = JSON.parse(data)
+          console.log(data)
+          if (data['result'] === 'success') {
+            that.isLogin = false
+            that.$router.useInfo = null
+          }
+        })
     }
   }
 }
@@ -119,6 +135,7 @@ export default {
 .movie-name {
   white-space: nowrap;
   text-overflow: ellipsis;
+  overflow: hidden;
   width: 165px;
   font-size: 16px;
   padding-left: 20px;
