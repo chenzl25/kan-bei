@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Entry from '@/components/Entry'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
+import Movie from '@/components/Movie'
 
 Vue.use(Router)
 
@@ -20,6 +21,10 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    }, {
+      path: '/movie/:movieId',
+      name: 'Movie',
+      component: Movie
     }
   ]
 })

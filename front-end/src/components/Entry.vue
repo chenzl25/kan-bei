@@ -43,9 +43,7 @@
     <div class="row col-xs-10 col-md-10">
       <template v-for="movie,index in filteredMovies">
         <div class="movie-item　col-xs-2 col-md-2">
-          <a :href="index">
-            <img class="movie-img"　:src="movie.img" >
-          </a>
+          <img class="movie-img"　:src="movie.img" v-on:click="clickImg(movie.id)">
           <div class="movie-name">{{movie.nm}}</div>
           <div class="movie-scroe">{{movie.sc?movie.sc:'暂无'}}</div>
         </div>
@@ -104,6 +102,9 @@ export default {
             that.$router.useInfo = null
           }
         })
+    },
+    clickImg: function (movieId) {
+      this.$router.push({name: 'Movie', params: {movieId: movieId}})
     }
   }
 }
@@ -128,6 +129,7 @@ export default {
   height: 230px;
   margin: 10px;
   padding: 10px;
+  cursor: pointer;
 }
 .movie-item {
 
