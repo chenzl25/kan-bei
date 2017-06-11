@@ -13,6 +13,7 @@
         <p>{{movieInfo.detail.src + '/' + movieInfo.detail.dur + '分钟'}}</p>
         <p>剧情简介:</p>
         <div class="raw" v-html="movieInfo.detail.dra"></div>
+        <button  type="button" class="btn btn-warning buy-btn" v-on:click="buy()">立即购票</button>
       </div>
     </div>
     <div class="down-wrapper">
@@ -76,6 +77,10 @@ export default {
     }
   },
   methods: {
+    buy: function () {
+      var movieId = this.$route.params.movieId
+      this.$router.push({name: 'Buy', params: {movieId: movieId}})
+    }
   },
 
   beforeMount: function () {
@@ -144,5 +149,9 @@ export default {
   position: relative;
   top: 20px;
   z-index: 999;
+}
+.buy-btn {
+  width: 170px;
+  height: 35px;
 }
 </style>

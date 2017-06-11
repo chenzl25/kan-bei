@@ -4,6 +4,8 @@ import Entry from '@/components/Entry'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Movie from '@/components/Movie'
+import Buy from '@/components/Buy'
+import Site from '@/components/Site'
 
 Vue.use(Router)
 
@@ -25,6 +27,14 @@ export default new Router({
       path: '/movie/:movieId',
       name: 'Movie',
       component: Movie
+    }, {
+      path: '/buy/:movieId',
+      name: 'Buy',
+      component: Buy
+    }, {
+      path: '/site/:movieId/:cinemaId/:price',
+      name: 'Site',
+      component: Site
     }
   ]
 })
